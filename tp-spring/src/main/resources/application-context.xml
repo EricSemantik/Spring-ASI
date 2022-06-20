@@ -10,13 +10,13 @@
 	
 	<context:component-scan base-package="tp.spring"/>
 	
-<!-- 	<bean id="guitariste" class="tp.spring.Guitariste"> -->
+	<bean id="guitariste" class="tp.spring.Guitariste">
 <!-- 		<constructor-arg ref="guitare"/> -->
 	
-<!-- 		<property name="morceau" value="Remember me"/> -->
-<!-- <property name="instrument" ref="guitare"/> --> 
-<!-- 	</bean> -->
+		<property name="morceau" value="Remember me"/>
+		<property name="instrument" ref="guitare"/> 
+	</bean>
 	
-<!-- 	<bean id="guitare" class="tp.spring.Guitare"/> -->
+	<bean id="guitare" class="tp.spring.Guitare"/>
 	
 </beans>
