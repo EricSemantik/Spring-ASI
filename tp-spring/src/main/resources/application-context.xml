@@ -21,4 +21,17 @@
 	
 	<bean id="guitare" class="tp.spring.Guitare"/>
 	
+	<aop:aspectj-autoproxy/>
+	
+	<bean id="spectateurAspect" class="tp.spring.aspect.SpectateurAspect"/>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(public void tp.spring.*.jouer())" id="iMusicienJouerPointCut"/>
+		
+		<aop:aspect ref="spectateurAspect">
+			<aop:before method="assoir" pointcut-ref="iMusicienJouerPointCut"/>
+			<aop:after-returning method="applaudir" returning="result" pointcut-ref="iMusicienJouerPointCut"/>
+			<aop:after-throwing method="rembourser" throwing="ex" pointcut-ref="iMusicienJouerPointCut"/>
+		</aop:aspect>
+	</aop:config>
 </beans>
