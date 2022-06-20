@@ -1,5 +1,7 @@
 package tp.spring;
 
+import javax.annotation.PostConstruct;
+
 public class Guitariste implements IMusicien {
 
 	private String morceau = "Vive le vent";
@@ -34,7 +36,14 @@ public class Guitariste implements IMusicien {
 
 	
 	public void setInstrument(IInstrument instrument) {
+		System.out.println("setInstrument");
 		this.instrument = instrument;
+		
+	}
+	
+	@PostConstruct
+	public void montrerPostconstruct() {
+		System.out.println("Après injection");
 	}
 
 }
