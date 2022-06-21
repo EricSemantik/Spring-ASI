@@ -20,7 +20,6 @@ public class TestJunit4WithSpring {
 	private IProduitRepository produitRepo;
 	
 	@Test
-	@Transactional
 	public void produit() {
 		int nbStartProduit = produitRepo.findAll().size();
 
