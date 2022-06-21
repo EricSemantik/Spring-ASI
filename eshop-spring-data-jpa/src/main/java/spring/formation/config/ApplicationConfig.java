@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan("spring.formation.repo") // Indiquer dans quel paquetage scanner pour trouver des annotations
 @EnableTransactionManagement // On active les annotations @Transactional
+@EnableJpaRepositories("spring.formation.repo") // Indiquer dans quel paquetage scanner pour trouver des interfaces qui étendent JpaRepository
 public class ApplicationConfig {
 	
 	// On crée la DataSource
