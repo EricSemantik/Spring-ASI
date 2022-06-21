@@ -1,16 +1,15 @@
 package spring.formation.repo.jpa;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import spring.formation.config.ApplicationConfig;
 import spring.formation.model.Fournisseur;
 import spring.formation.repo.IFournisseurRepository;
 
 public class Bidon {
 
 	public static void main(String[] args) {
-//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		IFournisseurRepository repoFournisseur = context.getBean(IFournisseurRepository.class);
 
 		Fournisseur fournisseur = new Fournisseur();

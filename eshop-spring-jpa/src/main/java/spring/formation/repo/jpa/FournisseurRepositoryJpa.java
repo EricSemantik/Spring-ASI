@@ -33,6 +33,7 @@ public class FournisseurRepositoryJpa implements IFournisseurRepository {
 
 	}
 
+	@Override
 	@Transactional(readOnly = false)
 	public Fournisseur save(Fournisseur entity) {
 		if (em.contains(entity)) {
@@ -46,6 +47,7 @@ public class FournisseurRepositoryJpa implements IFournisseurRepository {
 		return entity;
 	}
 
+	@Override
 	@Transactional(readOnly = false)
 	public void deleteById(Long id) {
 		em.createQuery("delete from Fournisseur e where e.id = ?1").setParameter(1, id).executeUpdate();

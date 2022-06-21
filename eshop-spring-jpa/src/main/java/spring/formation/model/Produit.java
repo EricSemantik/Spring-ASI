@@ -36,7 +36,7 @@ public class Produit {
 
 	@Column(name = "PRO_MODELE", length = 100)
 	private String modele;
-	
+
 	@Column(name = "PRO_STOCK")
 	private int stock;
 
@@ -46,10 +46,10 @@ public class Produit {
 
 	@OneToMany(mappedBy = "produit")
 	private List<CommandeDetail> details = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "produit")
 	private List<Commentaire> commentaires = new ArrayList<>();
-	
+
 	@ManyToMany(mappedBy = "produitsReparables")
 	private List<Reparateur> reparateurs = new ArrayList<>();
 
@@ -140,13 +140,20 @@ public class Produit {
 	public void setReparateurs(List<Reparateur> reparateurs) {
 		this.reparateurs = reparateurs;
 	}
-	
+
 	public Produit() { // IMPORTANT pour JPA
-		
+
 	}
-	
+
 	public Produit(String libelle) {
 		this.libelle = libelle;
+	}
+
+	public Produit(String libelle, Double prixAchat, Double prixVente) {
+		super();
+		this.libelle = libelle;
+		this.prixAchat = prixAchat;
+		this.prixVente = prixVente;
 	}
 
 	@Override
