@@ -1,30 +1,37 @@
 package spring.formation.repo.jpa;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import spring.formation.config.ApplicationConfig;
 import spring.formation.model.Produit;
 import spring.formation.repo.IProduitRepository;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationConfig.class)
-public class TestJunit4WithSpring {
+public class TestJunit4 {
 
-	@Autowired
-	private IProduitRepository produitRepo;
-	
+	private static AnnotationConfigApplicationContext context;
+
+	@BeforeClass
+	public static void beforeAllTest() {
+		context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+	}
+
+	@AfterClass
+	public static void afterAllTest() {
+		context.close();
+	}
+
 	@Test
 	public void produit() {
+		IProduitRepository produitRepo = context.getBean(IProduitRepository.class);
+
 		int nbStartProduit = produitRepo.findAll().size();
 
 		Produit produit = new Produit("IPhone 13", 1000.0, 1300.0);
-		
+
 		produit = produitRepo.save(produit);
 
 		Produit produitBis = new Produit("Nintendo Switch", 150.0, 250.0);
@@ -54,7 +61,7 @@ public class TestJunit4WithSpring {
 
 		produitRepo.deleteById(produit.getId());
 
-		boolean find =  produitRepo.findById(produit.getId()).isPresent();
+		boolean find = produitRepo.findById(produit.getId()).isPresent();
 
 		if (find) {
 			Assert.fail("Erreur Suppression Produit");
