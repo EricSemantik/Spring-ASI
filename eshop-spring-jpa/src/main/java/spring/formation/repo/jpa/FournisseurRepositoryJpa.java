@@ -1,104 +1,54 @@
 package spring.formation.repo.jpa;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import spring.formation.model.Fournisseur;
 import spring.formation.repo.IFournisseurRepository;
 
+@Repository
+@Transactional(readOnly = true)
 public class FournisseurRepositoryJpa implements IFournisseurRepository {
-	protected final static EntityManagerFactory emf = Persistence.createEntityManagerFactory("EshopUnit");
+	@PersistenceContext
+	private EntityManager em;
 
 	public FournisseurRepositoryJpa() {
 	}
 
+	@Override
 	public List<Fournisseur> findAll() {
-		EntityManager em = emf.createEntityManager();
-
-		try {
-			return em.createQuery("select f from Fournisseur f", Fournisseur.class).getResultList();
-		}
-
-		catch (Exception ex) {
-			ex.printStackTrace();
-			return new ArrayList<>();
-		}
-
-		finally {
-			em.close();
-		}
+		return em.createQuery("select f from Fournisseur f", Fournisseur.class).getResultList();
 	}
 
 	@Override
 	public Optional<Fournisseur> findById(Long id) {
-		EntityManager em = emf.createEntityManager();
+		return Optional.of(em.createQuery("select f from Fournisseur f left join fetch f.produits p where f.id = ?1",
+				Fournisseur.class).setParameter(1, id).getSingleResult());
 
-		try {
-			return Optional
-					.of(em.createQuery("select f from Fournisseur f left join fetch f.produits p where f.id = ?1",
-							Fournisseur.class).setParameter(1, id).getSingleResult());
-		}
-
-		catch (Exception ex) {
-			return Optional.empty();
-		}
-
-		finally {
-			em.close();
-		}
 	}
 
+	@Transactional(readOnly = false)
 	public Fournisseur save(Fournisseur entity) {
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-
-		try {
-			if (em.contains(entity)) {
-				em.persist(entity);
-			}
-
-			else { // UPDATE
-				entity = em.merge(entity);
-			}
-
-			em.getTransaction().commit();
+		if (em.contains(entity)) {
+			em.persist(entity);
 		}
 
-		catch (Exception ex) {
-			ex.printStackTrace();
-			em.getTransaction().rollback();
-		}
-
-		finally {
-			em.close();
+		else { // UPDATE
+			entity = em.merge(entity);
 		}
 
 		return entity;
 	}
 
+	@Transactional(readOnly = false)
 	public void deleteById(Long id) {
-		EntityManager em = emf.createEntityManager();
-
-		em.getTransaction().begin();
-
-		try {
-			em.createQuery("delete from Fournisseur e where e.id = ?1").setParameter(1, id).executeUpdate();
-			em.getTransaction().commit();
-		}
-
-		catch (Exception ex) {
-			ex.printStackTrace();
-			em.getTransaction().rollback();
-		}
-
-		finally {
-			em.close();
-		}
+		em.createQuery("delete from Fournisseur e where e.id = ?1").setParameter(1, id).executeUpdate();
 	}
 
 }

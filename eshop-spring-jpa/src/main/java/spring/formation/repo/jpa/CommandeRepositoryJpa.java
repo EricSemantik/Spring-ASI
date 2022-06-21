@@ -10,22 +10,19 @@ import javax.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import spring.formation.model.Produit;
-import spring.formation.repo.IProduitRepository;
+import spring.formation.model.Commande;
+import spring.formation.repo.ICommandeRepository;
 
 @Component
-public class ProduitRepositoryJpa implements IProduitRepository {
+public class CommandeRepositoryJpa implements ICommandeRepository {
 	@Autowired
 	private EntityManagerFactory emf;
 
-	public ProduitRepositoryJpa() {
-	}
-
-	public List<Produit> findAll() {
+	public List<Commande> findAll() {
 		EntityManager em = emf.createEntityManager();
 
 		try {
-			return em.createQuery("select p from Produit p", Produit.class).getResultList();
+			return em.createQuery("select e from Commande e", Commande.class).getResultList();
 		}
 
 		catch (Exception ex) {
@@ -38,11 +35,12 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 		}
 	}
 
-	public Optional<Produit> findById(Long id) {
+	@Override
+	public Optional<Commande> findById(Long id) {
 		EntityManager em = emf.createEntityManager();
 
 		try {
-			return Optional.of(em.createQuery("select e from Produit e where e.id = ?1", Produit.class)
+			return Optional.of(em.createQuery("select e from Commande e where e.id = ?1", Commande.class)
 					.setParameter(1, id).getSingleResult());
 		}
 
@@ -55,7 +53,7 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 		}
 	}
 
-	public Produit save(Produit entity) {
+	public Commande save(Commande entity) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
@@ -89,7 +87,7 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 		em.getTransaction().begin();
 
 		try {
-			em.createQuery("delete from Produit e where e.id = ?1").setParameter(1, id).executeUpdate();
+			em.createQuery("delete from Commande e where e.id = ?1").setParameter(1, id).executeUpdate();
 			em.getTransaction().commit();
 		}
 
@@ -103,21 +101,4 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 		}
 	}
 
-	@Override
-	public List<Produit> findByPrixBetween(Double a, Double b) {
-		EntityManager em = emf.createEntityManager();
-
-		try {
-			return em.createQuery("select p from Produit p where p.prixVente between ?1 and ?2", Produit.class)
-					.setParameter(1, a).setParameter(2, b).getResultList();
-		}
-
-		catch (Exception ex) {
-			return new ArrayList<>();
-		}
-
-		finally {
-			em.close();
-		}
-	}
 }
