@@ -50,15 +50,15 @@
 							class="form-control" id="stock" name="stock"
 							value="${produit.stock}" />
 					</div>
-					<div class="form-group">
-						<label for="idFournisseur">Fournisseur:</label>
-						<select class="form-control" id="idFournisseur" name="idFournisseur">
-							<option value="">Sélectionner un Fournisseur</option>
-							<c:forEach items="${fournisseurs}" var="fournisseur">
-								<option value="${fournisseur.id}" ${produit.fournisseur.id == fournisseur.id ? 'selected' : ''}>${fournisseur.nom}</option>
-							</c:forEach>
-						</select> 
-					</div>
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="idFournisseur">Fournisseur:</label> -->
+<!-- 						<select class="form-control" id="idFournisseur" name="idFournisseur"> -->
+<!-- 							<option value="">Sélectionner un Fournisseur</option> -->
+<%-- 							<c:forEach items="${fournisseurs}" var="fournisseur"> --%>
+<%-- 								<option value="${fournisseur.id}" ${produit.fournisseur.id == fournisseur.id ? 'selected' : ''}>${fournisseur.nom}</option> --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</select>  -->
+<!-- 					</div> -->
 				</div>
 				<div class="card-footer">
 					<c:url value="/produit/cancel" var="cancelUrl"/>
