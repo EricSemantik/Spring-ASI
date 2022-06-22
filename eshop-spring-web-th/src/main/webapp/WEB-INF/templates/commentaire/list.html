@@ -4,25 +4,21 @@
 	layout:decorate="layout.html">
 <head>
 <meta charset="UTF-8">
-<title>Liste des produits</title>
+<title>Liste des commentaires</title>
 </head>
 <body>
 	<section layout:fragment="monContenu">
 		<div class="card mt-3">
-			<div class="card-header bg-primary text-white display-6">Liste
-				des produits</div>
+			<div class="card-header bg-primary text-white display-6">Liste des commentaires</div>
 			<div class="card-body">
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>Identifiant</th>
-							<th>Libellé</th>
-							<th>Prix d'achat</th>
-							<th>Prix de vente</th>
-							<th>Référence</th>
-							<th>Modèle</th>
-							<th>Stock</th>
-							<th>Fournisseur</th>
+							<th>Date</th>
+							<th>Note</th>
+							<th>Commentaires</th>
+							<th>Produit</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -44,12 +40,23 @@
 										class="btn btn-danger"><i class="bi bi-trash"></i></a>
 								</div></td>
 						</tr>
+						<tr th:each="commentaire : ${commentaires}">
+								<td th:text="${commentaire.id}"></td>
+								<td>[[${#dates.format(commentaire.date, 'dd/MM/yyyy HH:mm')}]]</td>
+								<td>[[${commentaire.note}]]</td>
+								<td>[[${commentaire.commentaire}]]</td>
+								<td>[[${commentaire.produit?.libelle}]]</td>
+								<td><div class="btn-group btn-group-sm">
+								    <a th:href="@{/commentaire/edit(id=${commentaire.id})}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+								    <a th:href="@{/commentaire/delete/{id}(id=${commentaire.id})}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+								 </div></td>
+							</tr>
 					</tbody>
 
 				</table>
 			</div>
 			<div class="card-footer">
-				<a th:href="@{/produit/add}" class="btn btn-success btn-lg"><i
+				<a th:href="@{/commentaire/add}" class="btn btn-success btn-lg"><i
 					class="bi bi-plus-square"></i></a>
 			</div>
 		</div>
