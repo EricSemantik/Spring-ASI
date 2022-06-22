@@ -158,6 +158,20 @@ public class Produit {
 		this.prixAchat = prixAchat;
 		this.prixVente = prixVente;
 	}
+	
+	
+
+	public Produit(Long id, String libelle, Double prixAchat, Double prixVente, String reference, String modele,
+			int stock) {
+		super();
+		this.id = id;
+		this.libelle = libelle;
+		this.prixAchat = prixAchat;
+		this.prixVente = prixVente;
+		this.reference = reference;
+		this.modele = modele;
+		this.stock = stock;
+	}
 
 	@Override
 	public String toString() {

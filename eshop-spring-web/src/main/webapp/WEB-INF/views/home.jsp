@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +7,9 @@
 <title>Accueil</title>
 </head>
 <body>
-	<h1>Bienvenue sur ESHOP !</h1>
+<h1>Accueil</h1>
+
+<h3>Bonjour ${nomUtilisateur}!</h3>
+
 </body>
 </html>
