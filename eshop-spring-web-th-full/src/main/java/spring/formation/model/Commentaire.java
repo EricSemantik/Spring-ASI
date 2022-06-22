@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "commentaire")
 public class Commentaire {
@@ -23,6 +25,7 @@ public class Commentaire {
 
 	@Column(name = "COM_DATE", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private Date date = new Date();
 
 	@Column(name = "COM_NOTE", nullable = false)
