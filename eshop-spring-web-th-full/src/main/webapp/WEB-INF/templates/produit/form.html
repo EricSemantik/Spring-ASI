@@ -4,49 +4,55 @@
 	layout:decorate="layout.html">
 <head>
 <meta charset="UTF-8">
-<title>Edition d'un produit</title>
+<title>[[#{produit.form.titre}]]</title>
 </head>
 <body>
 	<section layout:fragment="monContenu">
 		<div class="card mt-3">
 			<form th:action="@{/produit/saveBis}" method="post">
 				<input type="hidden" name="id" th:value="${produit.id}" />
-				<div class="card-header bg-primary text-white display-6">Edition d'un produit</div>
+				<div class="card-header bg-primary text-white display-6">[[#{produit.form.entete}]]</div>
 				<div class="card-body">
 					<div class="form-group">
-						<label for="libelle">Libellé:</label> <input type="text"
+						<label for="libelle">[[#{produit.form.nom}]]:</label> <input type="text"
 							class="form-control" id="libelle" name="libelle"
 							th:value="${produit.libelle}" />
+						<span class="text-danger" th:errors="${produit.libelle}"></span>
 					</div>
 					<div class="form-group">
-						<label for="prixAchat">Prix d'achat:</label> <input type="number"
+						<label for="prixAchat">[[#{produit.form.prixAchat}]]:</label> <input type="number"
 							class="form-control" id="prixAchat" name="prixAchat"
 							th:value="${produit.prixAchat}" />
+						<span class="text-danger" th:errors="${produit.prixAchat}"></span>
 					</div>
 					<div class="form-group">
-						<label for="prixVente">Prix de vente:</label> <input type="number"
+						<label for="prixVente">[[#{produit.form.prixVente}]]:</label> <input type="number"
 							class="form-control" id="prixVente" name="prixVente"
 							th:value="${produit.prixVente}" />
+						<span class="text-danger" th:errors="${produit.prixVente}"></span>
 					</div>
 					<div class="form-group">
-						<label for="reference">Référence:</label> <input type="text"
+						<label for="reference">[[#{produit.form.reference}]]:</label> <input type="text"
 							class="form-control" id="reference" name="reference"
 							th:value="${produit.reference}" />
+						<span class="text-danger" th:errors="${produit.reference}"></span>
 					</div>
 					<div class="form-group">
-						<label for="modele">Modèle:</label> <input type="text"
+						<label for="modele">[[#{produit.form.modele}]]:</label> <input type="text"
 							class="form-control" id="modele" name="modele"
 							th:value="${produit.modele}" />
+						<span class="text-danger" th:errors="${produit.modele}"></span>
 					</div>
 					<div class="form-group">
-						<label for="stock">Stock:</label> <input type="number"
+						<label for="stock">[[#{produit.form.stock}]]:</label> <input type="number"
 							class="form-control" id="stock" name="stock"
 							th:value="${produit.stock}" />
+						<span class="text-danger" th:errors="${produit.stock}"></span>
 					</div>
 					<div class="form-group">
-						<label for="idFournisseur">Fournisseur:</label>
+						<label for="idFournisseur">[[#{produit.form.fournisseur}]]:</label>
 						<select class="form-control" id="idFournisseur" name="idFournisseur">
-							<option value="">Sélectionner un Fournisseur</option>
+							<option value="">[[#{produit.form.fournisseur.select}]]</option>
 							<option th:each="fournisseur : ${fournisseurs}" th:value="${fournisseur.id}" th:selected="${produit.fournisseur?.id == fournisseur.id}">[[${fournisseur.nom}]]</option>
 						</select> 
 					</div>

@@ -3,10 +3,13 @@ package spring.formation.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import spring.formation.controller.validator.ProduitValidator;
 import spring.formation.model.Fournisseur;
 import spring.formation.model.Produit;
 import spring.formation.repo.IFournisseurRepository;
@@ -98,8 +102,13 @@ public class ProduitController {
 	}
 	
 	@PostMapping("/saveBis")
-	public String saveBis(@ModelAttribute("produit") Produit produit, @RequestParam(required = false) Long idFournisseur) {
-
+	public String saveBis(@ModelAttribute("produit") @Valid Produit produit, BindingResult result, @RequestParam(required = false) Long idFournisseur) {
+		new ProduitValidator().validate(produit, result);
+		
+		if(result.hasErrors()) {
+			return "produit/form";
+		}
+		
 		if (idFournisseur != null) {
 			Fournisseur fournisseur = new Fournisseur();
 			fournisseur.setId(idFournisseur);
