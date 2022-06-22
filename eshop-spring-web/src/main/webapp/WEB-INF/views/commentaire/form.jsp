@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- ETAPE 5 : Génération de la View avec les données du Model --%>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
 					<div class="form-group">
 						<label for="date">Date:</label> <input type="datetime-local"
 							class="form-control" id="date" name="date"
-							value="${commentaire.date}" />
+							value="<fmt:formatDate value="${commentaire.date}" pattern="yyyy-MM-dd'T'HH:mm"/>" />
 					</div>
 					<div class="form-group">
 						<label for="note">Note:</label> <input type="number"
@@ -32,9 +33,16 @@
 					</div>
 					<div class="form-group">
 						<label for="commentaire">Commentaire:</label>
-						<textarea class="form-control" id="commentaire" name="commentaire" rows="5">
-						${commentaire.commentaire}
-						</textarea>
+						<textarea class="form-control" id="commentaire" name="commentaire" rows="5">${commentaire.commentaire}</textarea>
+					</div>
+					<div class="form-group">
+						<label for="idProduit">Produit:</label>
+						<select class="form-control" id="idProduit" name="idProduit">
+							<option value="">Sélectionner un produit</option>
+							<c:forEach items="${produits}" var="prod">
+								<option value="${prod.id}" ${commentaire.produit.id == prod.id ? 'selected' : ''}>${prod.libelle}</option>
+							</c:forEach>
+						</select> 
 					</div>
 
 				</div>

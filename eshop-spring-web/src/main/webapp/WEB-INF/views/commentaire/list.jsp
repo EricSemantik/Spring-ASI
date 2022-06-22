@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- ETAPE 5 : Génération de la View avec les données du Model --%>
 <!DOCTYPE html>
 <html>
@@ -36,10 +37,10 @@
 							<c:url value="/commentaire/delete/${commentaire.id}" var="deleteUrl"/>
 							<tr>
 								<td>${commentaire.id}</td>
-								<td>${df.format(commentaire.date)}</td>
+								<td><fmt:formatDate value="${commentaire.date}" pattern="dd/MM/yyyy HH:mm"/></td>
 								<td>${commentaire.note}</td>
 								<td>${commentaire.commentaire}</td>
-								<td></td>
+								<td>${commentaire.produit.libelle}</td>
 								<td><div class="btn-group btn-group-sm">
 								    <a href="${editUrl}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
 								    <a href="${deleteUrl}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
