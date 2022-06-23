@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout.html">
+<head>
+<meta charset="UTF-8">
+<title>[[#{produit.list.titre}]]</title>
+</head>
+<body>
+	<section layout:fragment="monContenu">
+		<div class="card mt-3">
+			<div class="card-header bg-primary text-white display-6">[[#{produit.list.header}]]</div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>[[#{produit.list.id}]]</th>
+							<th>[[#{produit.list.nom}]]</th>
+							<th>[[#{produit.list.prixAchat}]]</th>
+							<th>[[#{produit.list.prixVente}]]</th>
+							<th>[[#{produit.list.reference}]]</th>
+							<th>[[#{produit.list.modele}]]</th>
+							<th>[[#{produit.list.stock}]]</th>
+							<th>[[#{produit.list.fournisseur}]]</th>
+							<th></th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="prod : ${mesProduits}">
+							<td th:text="${prod.id}"></td>
+							<td>[[${prod.libelle}]]</td>
+							<td>[[${prod.prixAchat}]]</td>
+							<td>[[${prod.prixVente}]]</td>
+							<td>[[${prod.reference}]]</td>
+							<td>[[${prod.modele}]]</td>
+							<td>[[${prod.stock}]]</td>
+							<td>[[${prod.fournisseur?.nom}]]</td>
+							<td><div class="btn-group btn-group-sm">
+									<a th:href="@{/produit/edit(id=${prod.id})}"
+										class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+									<a th:href="@{/produit/delete/{id}(id=${prod.id})}"
+										class="btn btn-danger"><i class="bi bi-trash"></i></a>
+								</div></td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+			<div class="card-footer">
+				<a th:href="@{/produit/add}" class="btn btn-success btn-lg"><i
+					class="bi bi-plus-square"></i></a>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
