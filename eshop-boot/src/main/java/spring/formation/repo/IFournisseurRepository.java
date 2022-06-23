@@ -12,7 +12,10 @@ import spring.formation.model.Fournisseur;
 public interface IFournisseurRepository extends JpaRepository<Fournisseur, Long> {
 	@Query("select distinct f from Fournisseur f left join fetch f.produits")
 	List<Fournisseur> findAllWithProduits();
-	
+
 	@Query("select distinct f from Fournisseur f left join fetch f.produits where f.id = :id")
 	Optional<Fournisseur> findBydIdWithProduits(@Param("id") Long id);
+
+	@Query("select f from Fournisseur f where f.login = ?1")
+	Optional<Fournisseur> findByLogin(String login);
 }

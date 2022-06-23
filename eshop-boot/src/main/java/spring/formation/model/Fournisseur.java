@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 @DiscriminatorValue("fournisseur")
 public class Fournisseur extends Personne {
-	@Column(name = "FOU_RESPONSABLE", length = 200, nullable = false)
+	@Column(name = "FOU_RESPONSABLE", length = 200)
 	@JsonView(Views.ViewCommon.class)
 	private String responsable;
 

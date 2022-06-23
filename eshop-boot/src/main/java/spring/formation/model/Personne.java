@@ -24,6 +24,10 @@ public abstract class Personne {
 	protected String nom;
 	@JsonView(Views.ViewCommon.class)
 	protected String adresse;
+	@JsonView(Views.ViewCommon.class)
+	protected String login;
+	@JsonView(Views.ViewCommon.class)
+	protected String motDePasse;
 
 	public Long getId() {
 		return id;
@@ -48,4 +52,21 @@ public abstract class Personne {
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
 }
