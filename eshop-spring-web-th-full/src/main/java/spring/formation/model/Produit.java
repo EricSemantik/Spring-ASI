@@ -16,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "produit")
 @NamedQuery(name = "Produit.findByPrixBetween", query = "select p from Produit p where p.prixVente between ?1 and ?2")
@@ -24,38 +27,48 @@ public class Produit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PRO_ID")
+	@JsonView(Views.ViewCommon.class)
 	private Long id;
-
 	@Column(name = "PRO_NOM", length = 150)
 	@NotEmpty(message = "{produit.form.nom.notBlank}")
+	@JsonView(Views.ViewCommon.class)
 	private String libelle;
 
 	@Column(name = "PRO_PRIX_ACHAT", precision = 10, scale = 2)
+	@JsonView(Views.ViewCommon.class)
 	private Double prixAchat;
 
 	@Column(name = "PRO_PRIX_VENTE", precision = 10, scale = 2)
+	@JsonView(Views.ViewCommon.class)
 	private Double prixVente;
 
 	@Column(name = "PRO_REFERENCE", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private String reference;
 
 	@Column(name = "PRO_MODELE", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private String modele;
 
 	@Column(name = "PRO_STOCK")
+	@JsonView(Views.ViewCommon.class)
 	private int stock;
 
 	@ManyToOne
 	@JoinColumn(name = "PRO_FOURNISSEUR_ID")
+	@JsonView(Views.ViewProduitDetail.class)
 	private Fournisseur fournisseur;
 
 	@OneToMany(mappedBy = "produit")
+	@JsonIgnore
 	private List<CommandeDetail> details = new ArrayList<>();
 
 	@OneToMany(mappedBy = "produit")
+	@JsonIgnore
 	private List<Commentaire> commentaires = new ArrayList<>();
 
 	@ManyToMany(mappedBy = "produitsReparables")
+	@JsonIgnore
 	private List<Reparateur> reparateurs = new ArrayList<>();
 
 	public Long getId() {
